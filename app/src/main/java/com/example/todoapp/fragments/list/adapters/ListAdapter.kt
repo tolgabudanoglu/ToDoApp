@@ -1,4 +1,4 @@
-package com.example.todoapp.fragments.list
+package com.example.todoapp.fragments.list.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
