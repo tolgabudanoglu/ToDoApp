@@ -1,5 +1,6 @@
 package com.example.todoapp.fragments.update
 
+import android.app.AlertDialog
 import android.os.Bundle
 import android.view.*
 import android.widget.Toast
@@ -39,19 +40,20 @@ class UpdateFragment : Fragment() {
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-
-        // The usage of an interface lets you inject your own implementation
+        super.onViewCreated(view, savedInstanceState)
         val menuHost: MenuHost = requireActivity()
-
-        menuHost.addMenuProvider(object : MenuProvider {
+        menuHost.addMenuProvider(object: MenuProvider {
             override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
-                // Add menu items here
                 menuInflater.inflate(R.menu.update_fragment_menu, menu)
             }
 
             override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
-                // Handle the menu selection
-                TODO()
+                when (menuItem.itemId) {
+                    R.id.menuSave -> updateItem()
+                    R.id.menuDelete -> confirmItemRemoval()
+                    android.R.id.home -> requireActivity().onBackPressedDispatcher.onBackPressed()
+                }
+                return true
             }
         }, viewLifecycleOwner, Lifecycle.State.RESUMED)
     }
@@ -80,5 +82,27 @@ class UpdateFragment : Fragment() {
         }
     }
 
+    private fun confirmItemRemoval() {
+        val builder = AlertDialog.Builder(requireContext())
+        builder.setPositiveButton("Yes") { _, _ ->
+            mToDoViewModel.deleteItem(args.currentItem)
+            Toast.makeText(
+                requireContext(),
+                "Successfully Removed: ${args.currentItem.title}",
+                Toast.LENGTH_SHORT
+            ).show()
+            findNavController().navigate(R.id.action_updateFragment_to_listFragment)
+        }
+        builder.setNegativeButton("No") { _, _ -> }
+        builder.setTitle("Delete '${args.currentItem.title}'?")
+        builder.setMessage("Are you sure you want to remove '${args.currentItem.title}'?")
+        builder.create().show()
+    }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
 }
+
+
