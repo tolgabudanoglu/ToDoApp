@@ -12,6 +12,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.example.todoapp.R
 import com.example.todoapp.data.viewmodel.ToDoViewModel
 import com.example.todoapp.databinding.FragmentListBinding
@@ -33,27 +34,32 @@ class ListFragment : Fragment() {
         // Inflate the layout for this fragment
         _binding = FragmentListBinding.inflate(inflater,container,false)
 
-        val recyclerView = binding.recyclerView
-        recyclerView.adapter = adapter
-        recyclerView.layoutManager = LinearLayoutManager(requireActivity())
+        binding.lifecycleOwner = this
+        binding.mSharedViewModel = mSharedViewModel
 
-        mToDoViewModel.getAllData.observe(viewLifecycleOwner, Observer {data->
+        // Setup RecyclerView
+        setupRecyclerview()
+
+        // Observe LiveData
+        mToDoViewModel.getAllData.observe(viewLifecycleOwner) { data ->
+            mSharedViewModel.checkIfDatabaseEmpty(data)
             adapter.setData(data)
-        })
-
-
-        binding.floatingActionButton.setOnClickListener {
-            findNavController().navigate(R.id.action_listFragment_to_addFragment)
+            binding.recyclerView.scheduleLayoutAnimation()
         }
 
-
-
-
+        // Hide soft keyboard
 
 
         return binding.root
     }
 
+    private fun setupRecyclerview() {
+        val recyclerView = binding.recyclerView
+        recyclerView.adapter = adapter
+        recyclerView.layoutManager =
+            StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
+
+    }
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

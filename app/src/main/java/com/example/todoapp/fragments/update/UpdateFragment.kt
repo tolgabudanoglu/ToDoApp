@@ -32,8 +32,11 @@ class UpdateFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        // Inflate the layout for this fragment
+
         _binding = FragmentUpdateBinding.inflate(inflater, container, false)
+
+        binding.args = args
+        binding.prioritiesSpinnerCurrent.onItemSelectedListener = mSharedViewModel.listener
 
         return binding.root
     }
@@ -65,7 +68,6 @@ class UpdateFragment : Fragment() {
 
         val validation = mSharedViewModel.verifyDataFromUser(title, description)
         if (validation) {
-            // Update Current Item
             val updatedItem = ToDoData(
                 args.currentItem.id,
                 title,
@@ -74,7 +76,7 @@ class UpdateFragment : Fragment() {
             )
             mToDoViewModel.updateData(updatedItem)
             Toast.makeText(requireContext(), "Successfully updated!", Toast.LENGTH_SHORT).show()
-            // Navigate back
+
             findNavController().navigate(R.id.action_updateFragment_to_listFragment)
         } else {
             Toast.makeText(requireContext(), "Please fill out all fields.", Toast.LENGTH_SHORT)

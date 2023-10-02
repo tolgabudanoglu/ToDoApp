@@ -17,13 +17,13 @@ interface ToDoDao {
     fun insertData(toDoData: ToDoData)
 
     @Update
-    suspend fun updateData(toDoData: ToDoData)
+     fun updateData(toDoData: ToDoData)
 
     @Delete
-    suspend fun deleteItem(toDoData: ToDoData)
+     fun deleteItem(toDoData: ToDoData)
 
     @Query("DELETE FROM todo_table")
-    suspend fun deleteAll()
+     fun deleteAll()
 
     @Query("SELECT * FROM todo_table WHERE title LIKE :searchQuery")
     fun searchDatabase(searchQuery: String): LiveData<List<ToDoData>>
