@@ -64,18 +64,23 @@ class ListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
-        // The usage of an interface lets you inject your own implementation
+
         val menuHost: MenuHost = requireActivity()
 
         menuHost.addMenuProvider(object : MenuProvider {
             override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
-                // Add menu items here
+
                 menuInflater.inflate(R.menu.list_fragment_menu, menu)
             }
 
             override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
-                // Handle the menu selection
-                TODO()
+                when (menuItem.itemId) {
+                    R.id.menuDeleteAll -> confirmRemoval()
+
+                    android.R.id.home -> requireActivity().onBackPressedDispatcher.onBackPressed()
+                }
+                return true
+
             }
         }, viewLifecycleOwner, Lifecycle.State.RESUMED)
     }
