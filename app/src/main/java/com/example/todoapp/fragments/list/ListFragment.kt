@@ -35,23 +35,23 @@ class ListFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        // Inflate the layout for this fragment
+
         _binding = FragmentListBinding.inflate(inflater,container,false)
 
         binding.lifecycleOwner = this
         binding.mSharedViewModel = mSharedViewModel
 
-        // Setup RecyclerView
+
         setupRecyclerview()
 
-        // Observe LiveData
+
         mToDoViewModel.getAllData.observe(viewLifecycleOwner) { data ->
             mSharedViewModel.checkIfDatabaseEmpty(data)
             adapter.setData(data)
             binding.recyclerView.scheduleLayoutAnimation()
         }
 
-        // Hide soft keyboard
+
 
 
         return binding.root
@@ -111,6 +111,7 @@ class ListFragment : Fragment() {
         )
         snackBar.setAction("Undo") {
             mToDoViewModel.insertData(deletedItem)
+
         }
         snackBar.show()
     }

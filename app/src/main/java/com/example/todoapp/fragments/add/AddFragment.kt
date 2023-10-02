@@ -31,7 +31,7 @@ class AddFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        // Inflate the layout for this fragment
+
         _binding = FragmentAddBinding.inflate(inflater,container,false)
 
         binding.prioritiesSpinner.onItemSelectedListener = mSharedViewModel.listener
@@ -42,12 +42,12 @@ class AddFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
-        // The usage of an interface lets you inject your own implementation
+
         val menuHost: MenuHost = requireActivity()
 
         menuHost.addMenuProvider(object : MenuProvider {
             override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
-                // Add menu items here
+
                 menuInflater.inflate(R.menu.add_fragment_menu, menu)
             }
 
@@ -77,7 +77,7 @@ class AddFragment : Fragment() {
             )
             mToDoViewModel.insertData(newData)
             Toast.makeText(requireContext(), "Successfully added!", Toast.LENGTH_SHORT).show()
-            // Navigate Back
+
             findNavController().navigate(R.id.action_addFragment_to_listFragment)
         } else {
             Toast.makeText(requireContext(), "Please fill out all fields.", Toast.LENGTH_SHORT)
