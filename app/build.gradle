@@ -105,5 +105,9 @@ dependencies {
     kapt "androidx.hilt:hilt-compiler:1.0.0"
 
 
+    //recylerview animation
+    implementation 'jp.wasabeef:recyclerview-animators:4.0.2'
+
+
 
 }
