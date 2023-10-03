@@ -95,6 +95,16 @@ class ListFragment : Fragment(), SearchView.OnQueryTextListener {
                 when (menuItem.itemId) {
                     R.id.menuDeleteAll -> confirmRemoval()
 
+                    R.id.menuPriorityHigh ->
+                        mToDoViewModel.sortByHighPriority.observe(viewLifecycleOwner){
+                            adapter.setData(it)
+                        }
+
+                    R.id.menuPriorityLow ->
+                        mToDoViewModel.sortByLowPriority.observe(viewLifecycleOwner){
+                            adapter.setData(it)
+                        }
+
                     android.R.id.home -> requireActivity().onBackPressedDispatcher.onBackPressed()
                 }
                 return true
