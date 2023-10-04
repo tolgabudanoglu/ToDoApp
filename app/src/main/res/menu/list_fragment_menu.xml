@@ -23,11 +23,40 @@
                     android:title="@string/priority_low"/>
             </menu>
         </item>
+
+
     </group>
 
     <item
         android:id="@+id/menuDeleteAll"
         android:title="@string/delete_all"
         app:showAsAction="never"/>
+
+
+    <group android:checkableBehavior="none">
+        <item
+            android:id="@+id/changeLayout"
+            android:title="@string/change_layout">
+            <menu>
+                <item
+                    android:id="@+id/changeGrid"
+                    android:title="@string/grid_design">
+
+                </item>
+
+                <item
+                    android:id="@+id/changeLinear"
+                    android:title="@string/linear_design">
+
+                </item>
+            </menu>
+
+
+
+        </item>
+
+
+
+    </group>
 
 </menu>

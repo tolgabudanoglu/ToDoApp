@@ -34,6 +34,7 @@ class ListFragment : Fragment(), SearchView.OnQueryTextListener {
     private val adapter: ListAdapter by lazy { ListAdapter() }
     private val mToDoViewModel: ToDoViewModel by viewModels()
     private val mSharedViewModel: SharedViewModel by viewModels()
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -60,11 +61,17 @@ class ListFragment : Fragment(), SearchView.OnQueryTextListener {
         return binding.root
     }
 
-    private fun setupRecyclerview() {
+    private fun setupRecyclerview(design: Boolean = true) {
         val recyclerView = binding.recyclerView
         recyclerView.adapter = adapter
-        recyclerView.layoutManager =
-            StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
+        if (design){
+            recyclerView.layoutManager =
+                StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
+        }else{
+            recyclerView.layoutManager =
+                LinearLayoutManager(requireActivity())
+        }
+
 
         recyclerView.itemAnimator = LandingAnimator().apply {
             addDuration = 300
@@ -104,6 +111,10 @@ class ListFragment : Fragment(), SearchView.OnQueryTextListener {
                         mToDoViewModel.sortByLowPriority.observe(viewLifecycleOwner){
                             adapter.setData(it)
                         }
+
+                    R.id.changeGrid -> setupRecyclerview(true)
+                    R.id.changeLinear -> setupRecyclerview(false)
+
 
                     android.R.id.home -> requireActivity().onBackPressedDispatcher.onBackPressed()
                 }
