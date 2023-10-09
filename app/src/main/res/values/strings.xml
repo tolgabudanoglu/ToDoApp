@@ -4,7 +4,7 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="todo">TODO</string>
     <string name="no_data">No Data</string>
-    <string name="title">title</string>
+    <string name="title">Title</string>
     <string name="description">Description</string>
     <string name="search">Search</string>
     <string name="sort_by">Sort By</string>
@@ -15,8 +15,8 @@
     <string name="save">Save</string>
     <string name="delete">Delete</string>
     <string name="change_layout">Change Layout</string>
-    <string name="grid_design">grid design</string>
-    <string name="linear_design">linear design</string>
+    <string name="grid_design">Grid Design</string>
+    <string name="linear_design">Linear Design</string>
     <string-array name="priorities">
         <item>High Priority</item>
         <item>Medium Priority</item>
