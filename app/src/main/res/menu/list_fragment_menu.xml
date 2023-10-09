@@ -6,8 +6,9 @@
         android:id="@+id/menuSearch"
         android:title="@string/search"
         android:icon="@drawable/ic_search"
-        android:iconTint="@color/white"
+        app:iconTint="@color/black"
         app:showAsAction="ifRoom"
+
         app:actionViewClass="androidx.appcompat.widget.SearchView"/>
 
     <group android:checkableBehavior="single">
